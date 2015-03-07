@@ -114,6 +114,8 @@
   #include "pins_RAMPS_13.h"
 #elif MB(BAM_DICE_DUE)
   #include "pins_BAM_DICE_DUE.h"
+#elif MB(BOARD_MAKERPI)
+    #include "pins_MAKERPI.h"
 #elif MB(99)
   #include "pins_99.h"
 #else

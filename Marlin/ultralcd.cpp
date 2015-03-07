@@ -592,9 +592,10 @@ static void lcd_prepare_menu() {
       MENU_ITEM(function, MSG_AUTOSTART, lcd_autostart_sd);
     #endif
   #endif
-  MENU_ITEM(gcode, MSG_DISABLE_STEPPERS, PSTR("M84"));
+  //MENU_ITEM(gcode, MSG_DISABLE_STEPPERS, PSTR("M84"));
   MENU_ITEM(gcode, MSG_AUTO_HOME, PSTR("G28"));
-  MENU_ITEM(function, MSG_SET_HOME_OFFSETS, lcd_set_home_offsets);
+  //MENU_ITEM(function, MSG_SET_HOME_OFFSETS, lcd_set_home_offsets);
+  MENU_ITEM(submenu, MSG_MOVE_AXIS, lcd_move_menu);
   //MENU_ITEM(gcode, MSG_SET_ORIGIN, PSTR("G92 X0 Y0 Z0"));
   #if TEMP_SENSOR_0 != 0
     #if TEMP_SENSOR_1 != 0 || TEMP_SENSOR_2 != 0 || TEMP_SENSOR_BED != 0
@@ -614,8 +615,7 @@ static void lcd_prepare_menu() {
       MENU_ITEM(gcode, MSG_SWITCH_PS_ON, PSTR("M80"));
     }
   #endif
-  MENU_ITEM(submenu, MSG_MOVE_AXIS, lcd_move_menu);
-	
+
   END_MENU();
 }
 
@@ -679,8 +679,8 @@ static void lcd_move_menu_axis() {
   MENU_ITEM(back, MSG_MOVE_AXIS, lcd_move_menu);
   MENU_ITEM(submenu, MSG_MOVE_X, lcd_move_x);
   MENU_ITEM(submenu, MSG_MOVE_Y, lcd_move_y);
+  MENU_ITEM(submenu, MSG_MOVE_Z, lcd_move_z);
   if (move_menu_scale < 10.0) {
-    MENU_ITEM(submenu, MSG_MOVE_Z, lcd_move_z);
     MENU_ITEM(submenu, MSG_MOVE_E, lcd_move_e);
   }
   END_MENU();
@@ -1271,7 +1271,7 @@ void lcd_update() {
               int32_t encoderMovementSteps = abs(encoderDiff) / ENCODER_PULSES_PER_STEP;
 
               if (lastEncoderMovementMillis != 0) {
-                // Note that the rate is always calculated between to passes through the 
+                // Note that the rate is always calculated between to passes through the
                 // loop and that the abs of the encoderDiff value is tracked.
                 float encoderStepRate = (float)(encoderMovementSteps) / ((float)(ms - lastEncoderMovementMillis)) * 1000.0;
 
@@ -1403,7 +1403,7 @@ void lcd_reset_alert_level() { lcd_status_message_level = 0; }
   #define encrot1 2
   #define encrot2 3
   #define encrot3 1
-#endif 
+#endif
 
 /* Warning: This function is called from interrupt context */
 void lcd_buttons_update() {
@@ -1578,7 +1578,7 @@ char *ftostr43(const float &x)
 char *ftostr12ns(const float &x)
 {
   long xx=x*100;
-  
+
   xx=abs(xx);
   conv[0]=(xx/100)%10+'0';
   conv[1]='.';

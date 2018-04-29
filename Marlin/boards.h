@@ -68,6 +68,7 @@
 #define BOARD_SAINSMART_2IN1    49    // Sainsmart 2-in-1 board
 #define BOARD_ULTIMAKER         7     // Ultimaker
 #define BOARD_ULTIMAKER_OLD     71    // Ultimaker (Older electronics. Pre 1.5.4. This is rare)
+#define BOARD_MAKERPI_M2030     777   // MakerPI M2030 (China-made clone of Ultimaker 2)
 #define BOARD_AZTEEG_X3         67    // Azteeg X3
 #define BOARD_AZTEEG_X3_PRO     68    // Azteeg X3 Pro
 #define BOARD_ULTIMAIN_2        72    // Ultimainboard 2.x (Uses TEMP_SENSOR 20)

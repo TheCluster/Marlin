@@ -121,6 +121,8 @@
   #include "pins_ULTIMAKER.h"         // ATmega1280, ATmega2560
 #elif MB(ULTIMAKER_OLD)
   #include "pins_ULTIMAKER_OLD.h"     // ATmega1280, ATmega2560
+#elif MB(MAKERPI_M2030)
+  #include "pins_MAKERPI_M2030.h"     // ATmega2560
 #elif MB(AZTEEG_X3)
   #include "pins_AZTEEG_X3.h"         // ATmega2560
 #elif MB(AZTEEG_X3_PRO)

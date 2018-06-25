@@ -98,8 +98,8 @@
 //
 #define SDSS               53
 #define LED_PIN            13
-#define PS_ON_PIN          12
-#define SUICIDE_PIN        11   // PIN that has to be turned on right after start, to keep power flowing.
+#define PS_ON_PIN          11
+//#define SUICIDE_PIN        12   // PIN that has to be turned on right after start, to keep power flowing.
 #define CASE_LIGHT_PIN      8
 
 //

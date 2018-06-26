@@ -2530,11 +2530,11 @@ void kill_screen(const char* lcd_msg) {
     //
     // Auto Home
     //
-    MENU_ITEM(gcode, MSG_AUTO_HOME, PSTR("G28"));
+    MENU_ITEM(gcode, MSG_AUTO_HOME, PSTR("M80\nG28"));
     #if ENABLED(INDIVIDUAL_AXIS_HOMING_MENU)
-      MENU_ITEM(gcode, MSG_AUTO_HOME_X, PSTR("G28 X"));
-      MENU_ITEM(gcode, MSG_AUTO_HOME_Y, PSTR("G28 Y"));
-      MENU_ITEM(gcode, MSG_AUTO_HOME_Z, PSTR("G28 Z"));
+      MENU_ITEM(gcode, MSG_AUTO_HOME_X, PSTR("M80\nG28 X"));
+      MENU_ITEM(gcode, MSG_AUTO_HOME_Y, PSTR("M80\nG28 Y"));
+      MENU_ITEM(gcode, MSG_AUTO_HOME_Z, PSTR("M80\nG28 Z"));
     #endif
 
     //
@@ -2554,7 +2554,7 @@ void kill_screen(const char* lcd_msg) {
             #endif
           );
     #elif PLANNER_LEVELING && DISABLED(PROBE_MANUALLY)
-      MENU_ITEM(gcode, MSG_BED_LEVELING, PSTR("G28\nG29"));
+      MENU_ITEM(gcode, MSG_BED_LEVELING, PSTR("M80\nG28\nG29"));
     #endif
 
     #if ENABLED(LEVEL_BED_CORNERS) && DISABLED(LCD_BED_LEVELING)
@@ -2566,14 +2566,14 @@ void kill_screen(const char* lcd_msg) {
       //
       // Set Home Offsets
       //
-      MENU_ITEM(function, MSG_SET_HOME_OFFSETS, lcd_set_home_offsets);
+      //MENU_ITEM(function, MSG_SET_HOME_OFFSETS, lcd_set_home_offsets);
       //MENU_ITEM(gcode, MSG_SET_ORIGIN, PSTR("G92 X0 Y0 Z0"));
     #endif
 
     //
     // Disable Steppers
     //
-    MENU_ITEM(gcode, MSG_DISABLE_STEPPERS, PSTR("M84"));
+    //MENU_ITEM(gcode, MSG_DISABLE_STEPPERS, PSTR("M84"));
 
     //
     // Change filament
@@ -2599,11 +2599,11 @@ void kill_screen(const char* lcd_msg) {
       // Preheat for Material 1 and 2
       //
       #if TEMP_SENSOR_1 != 0 || TEMP_SENSOR_2 != 0 || TEMP_SENSOR_3 != 0 || TEMP_SENSOR_4 != 0 || TEMP_SENSOR_BED != 0
-        MENU_ITEM(submenu, MSG_PREHEAT_1, lcd_preheat_m1_menu);
-        MENU_ITEM(submenu, MSG_PREHEAT_2, lcd_preheat_m2_menu);
+        //MENU_ITEM(submenu, MSG_PREHEAT_1, lcd_preheat_m1_menu);
+        //MENU_ITEM(submenu, MSG_PREHEAT_2, lcd_preheat_m2_menu);
       #else
-        MENU_ITEM(function, MSG_PREHEAT_1, lcd_preheat_m1_e0_only);
-        MENU_ITEM(function, MSG_PREHEAT_2, lcd_preheat_m2_e0_only);
+        //MENU_ITEM(function, MSG_PREHEAT_1, lcd_preheat_m1_e0_only);
+        //MENU_ITEM(function, MSG_PREHEAT_2, lcd_preheat_m2_e0_only);
       #endif
 
     #endif // TEMP_SENSOR_0 != 0
@@ -3127,7 +3127,14 @@ void kill_screen(const char* lcd_msg) {
   void lcd_control_menu() {
     START_MENU();
     MENU_BACK(MSG_MAIN);
-    MENU_ITEM(submenu, MSG_TEMPERATURE, lcd_control_temperature_menu);
+
+    #if HAS_POWER_SWITCH
+      if (powersupply_on)
+        MENU_ITEM(submenu, MSG_TEMPERATURE, lcd_control_temperature_menu);
+    #else
+        MENU_ITEM(submenu, MSG_TEMPERATURE, lcd_control_temperature_menu);
+    #endif
+    
     MENU_ITEM(submenu, MSG_MOTION, lcd_control_motion_menu);
     MENU_ITEM(submenu, MSG_FILAMENT, lcd_control_filament_menu);
 
@@ -3368,12 +3375,12 @@ void kill_screen(const char* lcd_msg) {
     //
     // Preheat Material 1 conf
     //
-    MENU_ITEM(submenu, MSG_PREHEAT_1_SETTINGS, lcd_control_temperature_preheat_material1_settings_menu);
+    //MENU_ITEM(submenu, MSG_PREHEAT_1_SETTINGS, lcd_control_temperature_preheat_material1_settings_menu);
 
     //
     // Preheat Material 2 conf
     //
-    MENU_ITEM(submenu, MSG_PREHEAT_2_SETTINGS, lcd_control_temperature_preheat_material2_settings_menu);
+    //MENU_ITEM(submenu, MSG_PREHEAT_2_SETTINGS, lcd_control_temperature_preheat_material2_settings_menu);
     END_MENU();
   }
 
